@@ -1,4 +1,5 @@
 class TodosController < ApplicationController
+  before_action :set_todo, only: %w[show update]
   skip_before_action :verify_authenticity_token
 
   def index
@@ -7,24 +8,29 @@ class TodosController < ApplicationController
   end
 
   def show
-    @todo = Todo.find(params[:id])
     render json: @todo
   end
 
   def create
-    @todo = Todo.new(text: params[:text], is_completed: params[:is_completed], project_id: params[:project_id])
+    project = Project.find_or_create_by!(title: params[:project_title])
+
+    @todo = Todo.new(text: params[:text], is_completed: params[:is_completed], project_id: project.id)
       if @todo.save
         render json: @todo, status: :created
-        @project = Project.find(@todo.project_id)
       else
         render json: @todo.errors, status: :unprocessable_entity
       end
   end
 
   def update
-    @todo = Todo.find(params[:id])
     if(params.has_key?(:is_completed))
       @todo.update(is_completed: params[:is_completed])
     end
+  end
+
+  private
+
+  def set_todo
+    @todo = Todo.find(params[:id])
   end
 end
