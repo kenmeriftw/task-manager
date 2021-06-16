@@ -1,5 +1,9 @@
 class TodosController < ApplicationController
   before_action :load_todo, only: :update
+
+  def index
+    @todos = Todo.all
+  end
   
   def update
     if @todo.update(todo_params)
