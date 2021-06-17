@@ -1,24 +1,34 @@
-# README
+# TaskManager
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The backend part of test-task for Oblako Group. It works with Angular-frontend now, both of apps are deployed on Heroku (links 
 
-Things you may want to cover:
+There are three API-methods available now:
+- GET /projects — return all the Projects with Todos related;
+- POST /todos — creates a new Todo;
+- PATCH /projects/id/todo/id — updates Todo.
 
-* Ruby version
+Feel free to visit the Heroku deploy-page or to use the provided API!
 
-* System dependencies
+To run this application locally on your machine, you have to have `ruby-2.7.2` installed. Then,
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- clone this repo using
+```
+git clone git@github.com:knmrftw/task-manager.git
+```
+- make `cd` into new directory
+- run 
+```
+bundle
+```
+to install all the required Gems
+- run 
+```
+rails db:create
+rails db:migrate
+```
+to create the development Database and run all the required migrations in it.
+- finally, you may run
+```
+rails s
+```
+to start the local server, which may be found on `localhost:3000`
